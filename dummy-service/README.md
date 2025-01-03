@@ -4,9 +4,18 @@
 
 ## Build
 
+**Go executable:**
+
 ```console
 $ go build
 $ ./dummy-service
+```
+
+**Container image:**
+
+```console
+$ docker build -t dummy:local .
+$ docker run -i -t dummy:local
 ```
 
 ## Test the service
