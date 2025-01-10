@@ -14,7 +14,8 @@ type SqsCoordinator struct {
 	SqsClient *sqs.Client
 }
 
-func NewSqsCoordinator(ctx context.Context) SqsCoordinator {
+func NewSqsCoordinator() SqsCoordinator {
+	ctx := context.Background()
 	sdkCfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatal("Could not load config: %s\n", err.Error())

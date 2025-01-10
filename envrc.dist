@@ -1,0 +1,5 @@
+SQS_SOURCE_QUEUE=input-queue
+AWS_ACCESS_KEY_ID=test
+AWS_SECRET_ACCESS_KEY=test
+AWS_REGION=eu-west-1
+AWS_ENDPOINT_URL=http://localstack:4566/

@@ -8,3 +8,19 @@ services:
     volumes:
       - "./localstack_data:/var/lib/localstack"
       - "./init-localstack.sh:/etc/localstack/init/ready.d/init-localstack.sh"
+    networks:
+      - main
+
+  proxy:
+    ports:
+      - "8080:8080"
+    env_file:
+      ./envrc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - main
+
+networks:
+  main:
