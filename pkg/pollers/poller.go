@@ -4,14 +4,13 @@ import (
 	"context"
 	"log"
 
+	"github.com/meero-com/guild-proxy/pkg/aws"
 	"github.com/meero-com/guild-proxy/pkg/config"
-	"github.com/meero-com/guild-proxy/utils/aws"
 )
 
 func Poll() {
 	inputQueue := config.GetConfig("sqs.input_queue").(string)
-	ctx := context.Background()
-	c := aws.New(ctx)
+	c := aws.NewSqsCoordinator()
 
 	log.Printf("Start polling\n")
 

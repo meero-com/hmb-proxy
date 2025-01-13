@@ -1,10 +1,11 @@
 package api
 
 type Message struct {
-	Data Data
+	Header string
+	Data   Data
 }
 
 type Data struct {
-	Info        string
+	Uuid        string
 	OutputQueue string
 }

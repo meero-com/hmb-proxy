@@ -30,3 +30,19 @@ awslocal sqs --region eu-west-1 create-queue --queue-name $SOURCE_SQS \
                    "VisibilityTimeout": "20"
                    }'
 
+
+awslocal dynamodb create-table \
+ --table-name request-ddb-table \
+ --key-schema AttributeName=uuid,KeyType=HASH \
+ --attribute-definitions AttributeName=uuid,AttributeType=S \
+ --billing-mode PAY_PER_REQUEST \
+
+awslocal dynamodb create-table \
+ --table-name response-ddb-table \
+ --key-schema AttributeName=uuid,KeyType=HASH \
+ --attribute-definitions AttributeName=uuid,AttributeType=S \
+ --billing-mode PAY_PER_REQUEST \
+
+awslocal dynamodb put-item \
+  --table-name request-ddb-table \
+  --item '{"uuid": {"S": "c011892b-2204-4b39-89c0-f4f67a905cd2"}, "payload": {"M": {"name": {"S": "template test"}}}}'
