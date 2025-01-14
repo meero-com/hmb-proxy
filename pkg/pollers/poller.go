@@ -3,13 +3,13 @@ package pollers
 import (
 	"context"
 	"log"
-	"os"
 
+	"github.com/meero-com/guild-proxy/pkg/config"
 	"github.com/meero-com/guild-proxy/utils/aws"
 )
 
 func Poll() {
-	inputQueue := os.Getenv("SQS_SOURCE_QUEUE")
+	inputQueue := config.GetConfig("sqs.input_queue").(string)
 	ctx := context.Background()
 	c := aws.New(ctx)
 

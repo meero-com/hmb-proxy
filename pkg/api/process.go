@@ -3,14 +3,15 @@ package api
 import (
 	"encoding/json"
 	"log"
-	"os"
+
+	"github.com/meero-com/guild-proxy/pkg/config"
 )
 
 func process(ch chan string, p payload) {
 
 	// ctx := context.Background()
-	// inputQueue := os.Getenv("SQS_SOURCE_QUEUE")
-	outputQueue := os.Getenv("SQS_DESTINATION_QUEUE")
+	// inputQueue := config.GetConfig("sqs.input_queue").(string)
+	outputQueue := config.GetConfig("sqs.output_queue").(string)
 	// sqs := awsSdk.NewSqsCoordinator()
 	d := Data{
 		Info:        "test",

@@ -10,7 +10,7 @@ import (
 
 func InitConfig() {
 	viper.SetConfigName("config")
-	viper.AddConfigPath("config/")
+	viper.AddConfigPath("pkg/config")
 	viper.SetConfigType("yaml")
 	viper.AutomaticEnv()
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
@@ -46,4 +46,10 @@ func GetConfig(key string) interface{} {
 
 func GetAllConfig() map[string]interface{} {
 	return viper.AllSettings()
+}
+
+func PrintConfig() {
+	for key, value := range viper.AllSettings() {
+		log.Printf("%s: %v\n", key, value)
+	}
 }
