@@ -21,3 +21,6 @@ services:
       SQS_DESTINATION_QUEUE: output-queue
     build:
       context: .
+    volumes:
+      - .:/app
+    working_dir: /app
