@@ -24,3 +24,19 @@ It can then be run locally using:
 ```console
 $ docker run -it --rm proxy:local
 ```
+
+## Configure
+
+The configuration is handled in the `pkg/config/config.yaml` file. 
+
+All keys defined in the configuration file can be overriden using environment variables or command line arguments.
+
+**e.g.**:
+
+```console
+go run main.go --aws.access_key_id=...
+```
+
+```env
+AWS_ACCESS_KEY_ID=...
+```

@@ -1,0 +1,13 @@
+env: dev
+
+server:
+  port: 8080
+
+aws:
+  access_key_id: default
+  secret_access_key: default
+  region: eu-west-1
+  endpoint_url: http://localstack:4566/
+sqs:
+  source_queue: input-queue
+  destination_queue: output-queue
