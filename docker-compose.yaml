@@ -2,6 +2,8 @@
 services:
   localstack:
     image: localstack/localstack
+    environment:
+      DYNAMODB_SHARE_DB: 1
     ports:
       - "127.0.0.1:4566:4566"            # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559"  # external services port range
@@ -19,6 +21,8 @@ services:
       AWS_ENDPOINT_URL: http://localstack:4566/
       SQS_SOURCE_QUEUE: input-queue
       SQS_DESTINATION_QUEUE: output-queue
+      DDB_REQUEST_TABLE: request-ddb-table
+      DDB_RESPONSE_TABLE: response-ddb-table
     build:
       context: .
     volumes:

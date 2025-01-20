@@ -3,3 +3,5 @@ export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 export AWS_REGION=eu-west-1
 export AWS_ENDPOINT_URL=http://localstack:4566/
+export DDB_REQUEST_TABLE=request-ddb-table
+export DDB_RESPONSE_TABLE=response-ddb-table
