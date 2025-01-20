@@ -4,14 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"log"
-	"os"
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/meero-com/guild-proxy/pkg/aws"
+	"github.com/meero-com/guild-proxy/pkg/config"
 )
 
 func PollDdb(uuid string, ddb aws.DdbCoordinator) (string, error) {
-	responseTable := os.Getenv("DDB_RESPONSE_TABLE")
+	responseTable := config.GetConfig("ddb.response_table").(string)
 	ctx := context.Background()
 
 	item, err := ddb.Get(ctx, uuid, responseTable)

@@ -3,7 +3,6 @@ package api
 import (
 	"context"
 	"log"
-	"os"
 
 	"github.com/google/uuid"
 	"github.com/meero-com/guild-proxy/pkg/aws"
@@ -14,10 +13,8 @@ import (
 func process(ch chan string, p payload) {
 	ddb := aws.NewDdbCoordinator()
 	uuid := uuid.NewString()
-	responseTable := os.Getenv("DDB_RESPONSE_TABLE")
-	requestTable := os.Getenv("DDB_REQUEST_TABLE")
-
-	outputQueue := config.GetConfig("sqs.output_queue").(string)
+	responseTable := config.GetConfig("ddb.response_table").(string)
+	requestTable := config.GetConfig("ddb.request_table").(string)
 
 	// ctx := context.Background()
 	// inputQueue := config.GetConfig("sqs.input_queue").(string)
