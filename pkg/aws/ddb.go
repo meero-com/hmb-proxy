@@ -17,7 +17,7 @@ type DdbCoordinator struct {
 func NewDdbCoordinator() DdbCoordinator {
 	sdkCfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("eu-west-1"))
 	if err != nil {
-		log.Fatal("Could not load config: %s\n", err.Error())
+		log.Fatalf("Could not load config: %s\n", err.Error())
 	}
 	ddbClient := dynamodb.NewFromConfig(sdkCfg)
 	return DdbCoordinator{
@@ -55,7 +55,7 @@ func (d DdbCoordinator) Put(c context.Context, t string, ddbi DdbItem) (*dynamod
 		TableName: aws.String(t),
 	})
 	if err != nil {
-		log.Fatal("Failed to create no item into table: %s", t)
+		log.Fatalf("Failed to create no item into table: %s", t)
 		return i, err
 	}
 	return i, nil

@@ -1,10 +1,10 @@
 package aws
 
 type DdbItem struct {
-	Uuid    string
-	Payload DdbPayload
+	Uuid    string     `json:"uuid"`
+	Payload DdbPayload `json:"payload"`
 }
 
 type DdbPayload struct {
-	Name string
+	Name string `json:"name"`
 }

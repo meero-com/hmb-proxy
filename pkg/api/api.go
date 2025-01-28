@@ -1,18 +1,14 @@
 package api
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	// awsSdk "github.com/meero-com/guild-proxy/pkg/aws"
 )
 
 type handler struct{}
-type payload struct {
-	Id   string `json:"id" binding:"required"`
-	Name string `json:"name" binding:"required"`
-}
 
 func Activate(router *gin.Engine) {
 	newHandler(router)
@@ -31,13 +27,15 @@ func (h *handler) Get(c *gin.Context) {
 
 func (h *handler) Create(c *gin.Context) {
 	ch := make(chan string)
-	var content payload
+	var content requestPayload
+
 	if err := c.ShouldBindJSON(&content); err != nil {
-		log.Println(err)
 		c.Error(err)
 		c.AbortWithStatus(http.StatusBadRequest)
+		log.Fatalf("Failed to bind json error: %s", err)
 		return
 	}
+	fmt.Println(content)
 
 	go process(ch, content)
 	r := <-ch
