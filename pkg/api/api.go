@@ -1,7 +1,7 @@
 package api
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,11 +33,15 @@ func (h *handler) Create(c *gin.Context) {
 	ch := make(chan string)
 	var content payload
 	if err := c.ShouldBindJSON(&content); err != nil {
+		log.Println(err)
 		c.Error(err)
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 
 	go process(ch, content)
-	fmt.Println(<-ch)
+	r := <-ch
+	c.JSON(http.StatusOK, gin.H{
+		"anwser": r,
+	})
 }

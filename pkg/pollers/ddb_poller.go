@@ -15,6 +15,7 @@ func PollDdb(uuid string, ddb aws.DdbCoordinator) (string, error) {
 	ctx := context.Background()
 
 	item, err := ddb.Get(ctx, uuid, responseTable)
+	log.Println("Retrieving", uuid, responseTable, item)
 	if err != nil {
 		log.Fatal("Failed to poll item in ddb: %s", responseTable)
 	}

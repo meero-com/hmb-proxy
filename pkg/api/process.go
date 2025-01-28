@@ -13,7 +13,7 @@ import (
 func process(ch chan string, p payload) {
 	ddb := aws.NewDdbCoordinator()
 	uuid := uuid.NewString()
-	responseTable := config.GetConfig("ddb.response_table").(string)
+	//responseTable := config.GetConfig("ddb.response_table").(string)
 	requestTable := config.GetConfig("ddb.request_table").(string)
 
 	// ctx := context.Background()
@@ -33,7 +33,7 @@ func process(ch chan string, p payload) {
 		log.Fatal("Failed to put item %s into table %s", uuid, requestTable)
 	}
 
-	mockService(uuid, responseTable, ddb)
+	//mockService(uuid, responseTable, ddb)
 	i, err := pollers.PollDdb(uuid, ddb)
 
 	if err != nil {
