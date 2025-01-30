@@ -35,11 +35,8 @@ func (d DdbCoordinator) Get(c context.Context, uuid string, t string) (*dynamodb
 			TableName: aws.String(t),
 		},
 	)
-	if err != nil {
-		log.Fatal(err)
-		return i, err
-	}
-	return i, nil
+
+	return i, err
 }
 
 func (d DdbCoordinator) Put(c context.Context, t string, ddbi DdbItem) (*dynamodb.PutItemOutput, error) {

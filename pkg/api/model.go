@@ -6,5 +6,6 @@ type requestPayload struct {
 }
 
 type Payload struct {
-	Name string `json:"name" binding:"required"`
+	Name    string `json:"name" binding:"required"`
+	Timeout int    `json:"timeout" binding:"required"`
 }

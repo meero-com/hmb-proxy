@@ -43,6 +43,6 @@ awslocal dynamodb create-table \
  --attribute-definitions AttributeName=uuid,AttributeType=S \
  --billing-mode PAY_PER_REQUEST \
 
-awslocal dynamodb put-item \
-  --table-name response-ddb-table \
-  --item '{"uuid": {"S": "c011892b-2204-4b39-89c0-f4f67a905cd2"}, "payload": {"M": {"name": {"S": "response payload from service"}}}}'
+  awslocal dynamodb put-item \
+    --table-name response-ddb-table \
+    --item '{"uuid": {"S": "c011892b-2204-4b39-89c0-f4f67a905cd2"}, "payload": {"M": {"name": {"S": "response payload from service"}}}}'

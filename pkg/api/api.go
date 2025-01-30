@@ -1,9 +1,9 @@
 package api
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -35,11 +35,16 @@ func (h *handler) Create(c *gin.Context) {
 		log.Fatalf("Failed to bind json error: %s", err)
 		return
 	}
-	fmt.Println(content)
 
 	go process(ch, content)
-	r := <-ch
-	c.JSON(http.StatusOK, gin.H{
-		"anwser": r,
-	})
+
+	select {
+	case r := <-ch:
+		c.JSON(http.StatusOK, gin.H{
+			"anwser": r,
+		})
+	case <-time.After(time.Duration(content.Payload.Timeout) * time.Second):
+		log.Fatalf("TimeOut gros!")
+	}
+
 }
