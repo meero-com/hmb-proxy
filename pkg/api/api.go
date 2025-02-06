@@ -44,7 +44,10 @@ func (h *handler) Create(c *gin.Context) {
 			"anwser": r,
 		})
 	case <-time.After(time.Duration(content.Payload.Timeout) * time.Second):
-		log.Fatalf("TimeOut gros!")
+		log.Println("requested timed out")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "backend service timed out",
+		})
 	}
 
 }

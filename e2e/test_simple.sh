@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-curl -v -H "Content-Type: application/json" -XPOST localhost:8080/api/test -d '{"uuid": "c011892b-2204-4b39-89c0-f4f67a905cd2", "payload": {"name": "default", "timeout": 2}}'
+uuid=$(uuidgen)
+echo "Run the following command to trigger the response"
+echo aws dynamodb put-item --endpoint-url http://localhost:4566 --table-name response-ddb-table  --item \'{\"uuid\": {\"S\": \"$uuid\"}, \"payload\": { \"M\": { \"name\": { \"S\": \"response payload from service\" } } }}\'
+curl --retry 5 -v -H "Content-Type: application/json" -XPOST localhost:8080/api/test -d "{\"uuid\": \"$uuid\", \"payload\": {\"name\": \"default\", \"timeout\": 20}}"
