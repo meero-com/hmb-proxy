@@ -2,6 +2,8 @@
 
 _Hold My Beer proxy_
 
+![logo.png](./logo.png)
+
 Abstract asynchronous processing and make it synchronous for your clients.
 
 ## Goal
