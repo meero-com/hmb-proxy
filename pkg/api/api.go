@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"time"
@@ -32,7 +33,7 @@ func (h *handler) Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&content); err != nil {
 		c.Error(err)
 		c.AbortWithStatus(http.StatusBadRequest)
-		log.Fatalf("Failed to bind json error: %s", err)
+		log.Println("Failed to bind json error: %s", err)
 		return
 	}
 
@@ -40,9 +41,9 @@ func (h *handler) Create(c *gin.Context) {
 
 	select {
 	case r := <-ch:
-		c.JSON(http.StatusOK, gin.H{
-			"anwser": r,
-		})
+		var out map[string]interface{}
+		json.Unmarshal([]byte(r), &out)
+		c.JSON(http.StatusOK, out)
 	case <-time.After(time.Duration(content.Payload.Timeout) * time.Second):
 		log.Println("requested timed out")
 		c.JSON(http.StatusInternalServerError, gin.H{
