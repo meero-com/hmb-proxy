@@ -5,9 +5,9 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	"github.com/meero-com/guild-proxy/pkg/aws"
-	"github.com/meero-com/guild-proxy/pkg/config"
-	"github.com/meero-com/guild-proxy/pkg/pollers"
+	"github.com/meero-com/hmb-proxy/pkg/aws"
+	"github.com/meero-com/hmb-proxy/pkg/config"
+	"github.com/meero-com/hmb-proxy/pkg/pollers"
 )
 
 func process(ch chan string, p requestPayload) {
