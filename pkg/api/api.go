@@ -1,18 +1,14 @@
 package api
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
-	// awsSdk "github.com/meero-com/guild-proxy/pkg/aws"
 )
 
 type handler struct{}
-type payload struct {
-	Id   string `json:"id" binding:"required"`
-	Name string `json:"name" binding:"required"`
-}
 
 func Activate(router *gin.Engine) {
 	newHandler(router)
@@ -31,13 +27,27 @@ func (h *handler) Get(c *gin.Context) {
 
 func (h *handler) Create(c *gin.Context) {
 	ch := make(chan string)
-	var content payload
+	var content requestPayload
+
 	if err := c.ShouldBindJSON(&content); err != nil {
 		c.Error(err)
 		c.AbortWithStatus(http.StatusBadRequest)
+		log.Fatalf("Failed to bind json error: %s", err)
 		return
 	}
 
 	go process(ch, content)
-	fmt.Println(<-ch)
+
+	select {
+	case r := <-ch:
+		c.JSON(http.StatusOK, gin.H{
+			"anwser": r,
+		})
+	case <-time.After(time.Duration(content.Payload.Timeout) * time.Second):
+		log.Println("requested timed out")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "backend service timed out",
+		})
+	}
+
 }

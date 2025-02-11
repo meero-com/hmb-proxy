@@ -4,28 +4,45 @@ import (
 	"context"
 	"encoding/json"
 	"log"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/meero-com/guild-proxy/pkg/aws"
 	"github.com/meero-com/guild-proxy/pkg/config"
 )
 
-func PollDdb(uuid string, ddb aws.DdbCoordinator) (string, error) {
+const (
+	pollInterval = 6 * time.Second
+)
+
+func PollDdb(ch chan string, uuid string, ddb aws.DdbCoordinator) {
 	responseTable := config.GetConfig("ddb.response_table").(string)
 	ctx := context.Background()
 
-	item, err := ddb.Get(ctx, uuid, responseTable)
-	if err != nil {
-		log.Fatal("Failed to poll item in ddb: %s", responseTable)
+	log.Printf("Trying to retrieve item: %s in table %s", uuid, responseTable)
+	for {
+		item, err := ddb.Get(ctx, uuid, responseTable)
+
+		if err != nil {
+			log.Printf("Failed to retrieve item with Uuid: %s, continue polling", uuid)
+			continue
+		}
+
+		if item.Item != nil {
+			i := aws.DdbItem{}
+			err = attributevalue.UnmarshalMap(item.Item, &i)
+			if err != nil {
+				log.Fatalf("Failed to UnmarshalMap ddb item: %s with model: %s", item.Item, i)
+			}
+			si, err := json.Marshal(i)
+			if err != nil {
+				log.Fatalf("Failed to Marshal item: %s", i)
+			}
+			ch <- string(si)
+			close(ch)
+			return
+		}
+
+		time.Sleep(pollInterval)
 	}
-
-	i := aws.DdbItem{}
-	err = attributevalue.UnmarshalMap(item.Item, &i)
-
-	si, err := json.Marshal(i)
-	if err != nil {
-		log.Fatal("An error occured")
-	}
-
-	return string(si), nil
 }
