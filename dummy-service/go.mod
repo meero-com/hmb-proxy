@@ -1,4 +1,4 @@
-module github.com/meero-com/guild-proxy/dummy-service
+module github.com/meero-com/hmb-proxy/dummy-service
 
 go 1.23rc1
 

@@ -11,7 +11,7 @@ services:
       - "./localstack_data:/var/lib/localstack"
       - "./init-localstack.sh:/etc/localstack/init/ready.d/init-localstack.sh"
 
-  proxy:
+  hmb-proxy:
     ports:
       - "8080:8080"
     environment:

@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/meero-com/guild-proxy/pkg/api"
-	"github.com/meero-com/guild-proxy/pkg/config"
+	"github.com/meero-com/hmb-proxy/pkg/api"
+	"github.com/meero-com/hmb-proxy/pkg/config"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/meero-com/guild-proxy
+module github.com/meero-com/hmb-proxy
 
 go 1.23rc1
 
