@@ -17,12 +17,15 @@ func Activate(router *gin.Engine) {
 func newHandler(router *gin.Engine) {
 	h := handler{}
 
-	router.GET("/api/test", h.Get)
-	router.POST("/api/test", h.Create)
+	// TODO: consider variabilizing prefix
+	router.GET("/api/health", h.Healthcheck)
+	router.POST("/api/process", h.Create)
 }
 
-func (h *handler) Get(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, "Hello World from api!")
+func (h *handler) Healthcheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "healthy",
+	})
 }
 
 func (h *handler) Create(c *gin.Context) {
