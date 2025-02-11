@@ -1,8 +1,11 @@
 # HMB proxy
 
-_Hold My Beer proxy_
+<p align="center">
+  <img src="./logo.png" alt="logo.png" width="250" height="250"><br>
+  <b>Hold My Beer proxy</b>
+</p>
 
-![logo.png](./logo.png)
+------
 
 Abstract asynchronous processing and make it synchronous for your clients.
 
@@ -43,3 +46,4 @@ A `docker-compose.yml` manifest is available in the top-level directory to emula
 
 - Project name: HMB proxy
 - Reference to the executable: hmb-proxy
+
