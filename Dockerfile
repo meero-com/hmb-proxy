@@ -8,4 +8,4 @@ RUN go build -o hmb-proxy ./cmd/main.go
 # FROM scratch
 # COPY --from=builder /src/main /src/main
 
-CMD ["/src/hmb-proxy"]
+ENTRYPOINT ["/src/hmb-proxy"]
