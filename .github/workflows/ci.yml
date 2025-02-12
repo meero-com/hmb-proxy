@@ -18,16 +18,34 @@ jobs:
       - name: Build Docker image
         run: docker build -t proxy:ci .
 
-  go-fmt:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          go-version: "1.23"
+          python-version: '3.x'
 
-      - name: Run go fmt
-        run: go fmt ./...
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        run: |
+          docker compose up -d
+
+      - name: Run e2e test
+        run: |
+          chmod +x e2e/test_simple.sh
+          ./e2e/test_simple.sh
