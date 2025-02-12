@@ -9,6 +9,8 @@
 
 Abstract asynchronous processing and make it synchronous for your clients.
 
+[![CI](https://github.com/meero-com/hmb-proxy/actions/workflows/ci.yml/badge.svg)](https://github.com/meero-com/hmb-proxy/actions/workflows/ci.yml)
+
 ## Goal
 
 The HMB proxy is made to allow under-the-hood, loosely coupled processing with parallel processing in mind.
