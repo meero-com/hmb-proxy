@@ -46,4 +46,3 @@ A `docker-compose.yml` manifest is available in the top-level directory to emula
 
 - Project name: HMB proxy
 - Reference to the executable: hmb-proxy
-

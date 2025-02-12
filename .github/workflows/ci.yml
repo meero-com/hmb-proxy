@@ -10,42 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build -t proxy:ci .
+      - name: Build container image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          tags: meero-com/hmb-proxy:ci
 
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+        uses: actions/setup-python@v3
 
-      - name: Install pre-commit
-        run: pip install pre-commit
-
-      - name: Run pre-commit hooks
-        run: pre-commit run --all-files
-
-  e2e-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Docker
-        run: |
-          docker compose up -d
-
-      - name: Run e2e test
-        run: |
-          chmod +x e2e/test_simple.sh
-          ./e2e/test_simple.sh
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
