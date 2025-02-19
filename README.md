@@ -44,6 +44,8 @@ loosely coupling mechanism locally.
 Alternatively, the repository contains a [`./e2e`](./e2e) script to manually simulate
 a backend service.
 
+> This project is not Production-ready as of now. Feel free to use it, give your feedback and to help us improve it !
+
 ## Build
 
 This project supports packaging through container images.
