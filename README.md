@@ -21,6 +21,10 @@ while having all the benefits of async processing.
 Using a **timeout** / **retry** / **exponential back-off** strategy, users can completely abstract the implementation
 complexity of asynchronous systems.
 
+<p align="center">
+  <img src="./docs/images/hmb-full.png" alt="logo.png"><br>
+</p>
+
 ## Build
 
 This project supports packaging through container images.
