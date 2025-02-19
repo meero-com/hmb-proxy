@@ -25,6 +25,25 @@ complexity of asynchronous systems.
   <img src="./docs/images/hmb-full.png" alt="logo.png"><br>
 </p>
 
+## Usage
+
+```console
+$ export GIN_MODE=release
+$ hmb-proxy --env=prod
+2025/02/19 15:33:01 sqs: map[destination_queue:output-queue source_queue:input-queue]
+2025/02/19 15:33:01 aws: map[access_key_id:default endpoint_url:http://localstack:4566/ region:eu-west-1 secret_access_key:default]
+2025/02/19 15:33:01 env: prod
+2025/02/19 15:33:01 server: map[port:8080]
+```
+
+You can then forward requests to the proxy using `curl`.
+
+A dummy-service is available in [./dummy-service](./dummy-service) to try out the
+loosely coupling mechanism locally.
+
+Alternatively, the repository contains a [`./e2e`](./e2e) script to manually simulate
+a backend service.
+
 ## Build
 
 This project supports packaging through container images.
@@ -47,6 +66,13 @@ The repository offers different utilities to improve development.
 ### Compose setup
 
 A `docker-compose.yml` manifest is available in the top-level directory to emulate AWS services using localstack.
+
+```console
+$ docker compose up -d --wait
+[+] Running 2/2
+ ✔ Container hmb-proxy-hmb-proxy-1   Healthy  1.8s
+ ✔ Container hmb-proxy-localstack-1  Healthy  6.8s
+```
 
 ## Glossary
 
