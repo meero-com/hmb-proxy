@@ -2,17 +2,39 @@ name: "Publish new version"
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - main
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    outputs:
+      released_version: ${{ steps.release.outputs.new_release_version }}
+      released_version_tag: ${{ steps.release.outputs.new_release_git_tag }}
+      new_release: ${{ steps.release.outputs.new_release_published }}
+    name: "Semantic release"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Semantic Release
+        id: release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build-assets:
     name: "Build Release Assets"
     runs-on: ubuntu-latest
+    if: ${{ needs.tag-release.outputs.new_release == 'true' }}
+    needs:
+      - tag-release
     permissions:
       contents: write
       packages: write
@@ -38,6 +60,9 @@ jobs:
 
   build-and-push-image:
     runs-on: ubuntu-latest
+    if: ${{ needs.tag-release.outputs.new_release == 'true' }}
+    needs:
+      - tag-release
     permissions:
       contents: read
       packages: write
