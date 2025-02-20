@@ -14,4 +14,3 @@ jobs:
           fetch-depth: 1
 
       - uses: reviewdog/action-actionlint@v1
-
