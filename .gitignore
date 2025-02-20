@@ -1,3 +1,4 @@
 localstack_data/
 venv
 envrc
+dist/
