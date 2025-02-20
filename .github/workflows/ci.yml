@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -35,6 +38,7 @@ jobs:
 
   generate-release:
     runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
     needs:
       - pre-commit
       - build
