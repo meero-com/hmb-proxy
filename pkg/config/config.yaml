@@ -3,6 +3,8 @@ env: dev
 server:
   port: 8080
 
+backend_type: ddb
+
 aws:
   access_key_id: default
   secret_access_key: default
@@ -10,4 +12,7 @@ aws:
   endpoint_url: http://localstack:4566/
 sqs:
   source_queue: input-queue
-  destination_queue: output-queue
+  destination_queue: result-queue
+ddb:
+  request-table: request-ddb-table
+  response-table: response-ddb-table

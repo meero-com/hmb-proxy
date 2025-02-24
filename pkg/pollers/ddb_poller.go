@@ -15,7 +15,12 @@ const (
 	pollInterval = 6 * time.Second
 )
 
-func PollDdb(ch chan string, uuid string, ddb aws.DdbCoordinator) {
+type DdbPoller struct {
+	Ddb aws.DdbCoordinator
+}
+
+func (p *DdbPoller) Poll(ch chan string, uuid string) {
+	ddb := p.Ddb
 	responseTable := config.GetConfig("ddb.response_table").(string)
 	ctx := context.Background()
 
