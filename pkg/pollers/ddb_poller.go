@@ -11,10 +11,6 @@ import (
 	"github.com/meero-com/hmb-proxy/pkg/config"
 )
 
-const (
-	pollInterval = 6 * time.Second
-)
-
 type DdbPoller struct {
 	Ddb aws.DdbCoordinator
 }

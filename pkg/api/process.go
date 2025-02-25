@@ -23,9 +23,16 @@ func process(ch chan string, p requestPayload) {
 		poller = &pollers.DdbPoller{
 			Ddb: ddb,
 		}
+	} else if backendType == "sqs" {
+		sqs := aws.NewSqsCoordinator()
+		producer = &producers.SqsProducer{
+			Sqs: sqs,
+		}
+		poller = &pollers.SqsPoller{
+			Sqs: sqs,
+		}
 	} else {
-		// TODO: sqs producer and poller
-		log.Fatalf("SQS backend not yet implemented")
+		log.Fatalf("Unsupported backend type: %s", backendType)
 	}
 
 	producer.Produce(p.Uuid, p.Payload.Name)
