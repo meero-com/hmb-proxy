@@ -11,11 +11,12 @@ import (
 	"github.com/meero-com/hmb-proxy/pkg/config"
 )
 
-const (
-	pollInterval = 6 * time.Second
-)
+type DdbPoller struct {
+	Ddb aws.DdbCoordinator
+}
 
-func PollDdb(ch chan string, uuid string, ddb aws.DdbCoordinator) {
+func (p *DdbPoller) Poll(ch chan string, uuid string) {
+	ddb := p.Ddb
 	responseTable := config.GetConfig("ddb.response_table").(string)
 	ctx := context.Background()
 
