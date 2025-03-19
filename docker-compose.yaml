@@ -20,7 +20,7 @@ services:
       AWS_REGION: eu-west-1
       AWS_ENDPOINT_URL: http://localstack:4566/
       SQS_SOURCE_QUEUE: input-queue
-      SQS_DESTINATION_QUEUE: output-queue
+      SQS_DESTINATION_QUEUE: result-queue
       DDB_REQUEST_TABLE: request-ddb-table
       DDB_RESPONSE_TABLE: response-ddb-table
     build:
